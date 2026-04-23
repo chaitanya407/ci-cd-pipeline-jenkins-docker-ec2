@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "chaitanya407/ci-cd-app"
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/chaitanya407/ci-cd-pipeline-jenkins-docker-ec2.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+            }
+        }
+
+        stage('Push') {
+            steps {
+                echo "Push to DockerHub"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploy to EC2"
+            }
+        }
+    }
+}
